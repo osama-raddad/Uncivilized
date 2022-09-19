@@ -118,17 +118,6 @@ class ZeroRule : Rule<String> {
         return primitive.toBigIntegerOrNull() == BigInteger.ZERO
     }
 }
-//data class RealNumber(override val value: String) : Civilizable<String> {
-//    fun isInteger(): Boolean = value.contains(".")
-//    fun isDecimal(): Boolean = !isInteger()
-//    fun isNegative(): Boolean = value.startsWith("-")
-//    fun isPositive(): Boolean = !isNegative()
-//    fun isZero(): Boolean = value == "0"
-//    fun isPrime(): Boolean = value.toBigInteger().isProbablePrime(100)
-//    fun isComposite(): Boolean = !isPrime()
-//    fun isEven(): Boolean = value.toInt() % 2 == 0
-//    fun isOdd(): Boolean = !isEven()
-//}
 
 
 class RealNumberCivilizer : Civilizer<String, Rule<String>, RealNumber> {
