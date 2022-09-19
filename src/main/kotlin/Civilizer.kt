@@ -1,9 +1,8 @@
-interface PrimitiveWrapper<PRIMITIVE, RULE : Rule<PRIMITIVE>, OBJECT : WrappedPrimitive<PRIMITIVE>> {
+interface Civilizer<PRIMITIVE, RULE : Rule<PRIMITIVE>, OBJECT : Civilizable<PRIMITIVE>> {
 
-    val variations: List<Variation<PRIMITIVE, RULE, OBJECT>>
+    val variations: Collection<Variation<PRIMITIVE, RULE, OBJECT>>
 
-
-    fun of(value: PRIMITIVE): OBJECT {
+    infix fun of(value: PRIMITIVE): OBJECT {
         val safeValue = requireNotNull(value)
         val selectedConfig = findVariationByValue(safeValue)
         return instantiate(selectedConfig, safeValue)
@@ -20,10 +19,11 @@ interface PrimitiveWrapper<PRIMITIVE, RULE : Rule<PRIMITIVE>, OBJECT : WrappedPr
         ageVariation.declaration(value)
 
     private fun findVariationByValue(value: PRIMITIVE): Variation<PRIMITIVE, RULE, OBJECT> =
-        requireNotNull(variations.find(isConfigForValue(value))) { noVariationFound(value) }
+        variations.find(isConfigForValue(value)) ?: noVariationFound(value,variations)
 
-    fun noVariationFound(value: PRIMITIVE): () -> Any =
-        { "$value is not a valid value for ${this::class.simpleName}" }
+    fun noVariationFound(value: PRIMITIVE, variations: Collection<Variation<PRIMITIVE, RULE, OBJECT>>): Nothing {
+        throw IllegalArgumentException("No variation found for value $value in ${variations.flatMap { it.rule.map { it::class.simpleName } }.joinToString()}")
+    }
 
     private fun isConfigForValue(value: PRIMITIVE): (Variation<PRIMITIVE, RULE, OBJECT>) -> Boolean =
         { it.condition.run(value, it.rule) }

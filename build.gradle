@@ -8,6 +8,7 @@ repositories {
 
 dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.7.10"
 }
 
 test {
