@@ -1,10 +1,26 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.10'
+    id 'maven-publish'
 }
 
 repositories {
     mavenCentral()
 }
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            groupId = 'com.github.osama-raddad'
+            artifactId = 'uncivilized'
+            version = '1.1'
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
 
 dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
