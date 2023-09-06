@@ -2,6 +2,25 @@
 
 This library aims to onboard and validate primitive data types at the edge of your system. It's designed to reduce the Primitive Obsession code smell and standardize primitive handling throughout your software system.
 
+## How to
+To get a Git project into your build:
+
+### Step 1. Add the JitPack repository to your build file
+Add it in your root build.gradle at the end of repositories:
+
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+ 
+### Step 2. Add the dependency
+	dependencies {
+	        implementation 'com.github.osama-raddad:Uncivilized:1.0.1'
+	}
+
+
 ## Getting Started
 
 To start using Uncivilized Primitives, you need to include it in your project's dependencies. 
